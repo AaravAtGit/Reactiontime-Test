@@ -1,46 +1,85 @@
-# Astro Starter Kit: Basics
+# Reaction Time Test
 
-```sh
-npm create astro@latest -- --template basics
-```
+A web-based reaction time test application built with Astro.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Display
 
-## 🚀 Project Structure
+![alt text](image.png)
 
-Inside of your Astro project, you'll see the following folders and files:
+## Tech Stack
+
+- **Framework:** Astro
+- **Styling:** Vanilla CSS
+- **Scripting:** TypeScript
+
+## Project Structure
+The project has the following file layout:
 
 ```text
 /
 ├── public/
+│   ├── favicon.ico
 │   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+├── src/
+│   ├── components/
+│   │   ├── Navbar.astro       # Top navigation bar
+│   │   └── Reactiontime.astro # Main reaction time test component and game loop
+│   ├── layouts/
+│   │   └── Layout.astro       # Base HTML document template
+│   ├── pages/
+│   │   └── index.astro        # Home page rendering the test
+│   └── styles/
+│       └── global.css         # Global CSS style variables and resets
+├── package.json
+└── tsconfig.json
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## How It Works
 
-## 🧞 Commands
+The game loop transitions through five distinct states:
 
-All commands are run from the root of the project, from a terminal:
+1. **Idle (`data-state="idle"`)**: The default starting state. Displays "Click to start" (or press Spacebar).
+2. **Waiting (`data-state="waiting"`)**: The screen turns red. A random delay of 1 to 4 seconds is set.
+3. **Go (`data-state="go"`)**: The screen turns green. The timer starts.
+4. **Too Soon (`data-state="too-soon"`)**: Triggered if Spacebar is pressed before the screen turns green.
+5. **Result (`data-state="result"`)**: Displays the recorded response time in milliseconds.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+### Input Latency Minimization
 
-## 👀 Want to learn more?
+Input is registered via a `keydown` listener listening for the `Space` key. It uses `performance.now()` immediately upon keydown to capture the timestamp, comparing it to the timestamp when the screen turned green.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Setup and Commands
+
+All commands should be executed from the project root.
+
+### Installation
+
+Install the project dependencies:
+
+```bash
+npm install
+```
+
+### Development Server
+
+Start a local development server with hot-reloading at `http://localhost:4321`:
+
+```bash
+npm run dev
+```
+
+### Build
+
+Compile the project for production. The output will be generated in the `dist` directory:
+
+```bash
+npm run build
+```
+
+### Preview
+
+Preview the production build locally before deployment:
+
+```bash
+npm run preview
+```
