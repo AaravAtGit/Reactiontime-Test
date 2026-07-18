@@ -2,7 +2,7 @@
 
 A web-based reaction time test application built with Astro.
 
-## Display
+## <p align="center">Display</p> 
 
 ![alt text](image.png)
 
@@ -38,7 +38,7 @@ The project has the following file layout:
 
 The game loop transitions through five distinct states:
 
-1. **Idle (`data-state="idle"`)**: The default starting state. Displays "Click to start" (or press Spacebar).
+1. **Idle (`data-state="idle"`)**: The default starting state.
 2. **Waiting (`data-state="waiting"`)**: The screen turns red. A random delay of 1 to 4 seconds is set.
 3. **Go (`data-state="go"`)**: The screen turns green. The timer starts.
 4. **Too Soon (`data-state="too-soon"`)**: Triggered if Spacebar is pressed before the screen turns green.
@@ -46,7 +46,7 @@ The game loop transitions through five distinct states:
 
 ### Input Latency Minimization
 
-Input is registered via a `keydown` listener listening for the `Space` key. It uses `performance.now()` immediately upon keydown to capture the timestamp, comparing it to the timestamp when the screen turned green.
+Input is registered via a `keydown` listener listening for the `Space` key. It uses `performance.now()` immediately upon keydown to capture the timestamp, comparing it to the timestamp when the screen turned green to test the user's Reaction time. 
 
 ## Setup and Commands
 
@@ -83,3 +83,6 @@ Preview the production build locally before deployment:
 ```bash
 npm run preview
 ```
+---
+
+Made with 🩵 by [AaravAtGit](https://github.com/AaravAtGit/).
