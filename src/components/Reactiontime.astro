@@ -3,6 +3,23 @@
 
 <div class="gate" id="gate" data-state="idle">
     <div class="content-wrapper">
+        <div class="icon-container">
+            <svg class="icon icon-lightning" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13 2L3 14h9v8l10-12h-9l1-8z"/>
+            </svg>
+            
+            <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            
+            <svg class="icon icon-warning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+        </div>
+
         <h1 id="title" class="title">Reaction Time Test</h1>
         <p id="instructions" class="instructions">Click as quickly as you can once red turns green.</p>
         <p class="action-text" id="action-text">Click to start</p>
@@ -39,6 +56,25 @@
         width: 100%;
     }
 
+    .icon-container { 
+        margin-bottom: 2rem;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .icon {
+        display: none;
+        width: 80px;
+        height: 80px;
+        color: aliceblue;
+    }
+
+    .gate[data-state="idle"] .icon-lightning { display: block;}
+    .gate[data-state="result"] .icon-clock { display: block; }
+    .gate[data-state="too-soon"] .icon-warning { display: block; }
+
     .title {
         font-size: 5rem;
         font-weight: 800;
@@ -51,6 +87,13 @@
         font-size: 1.5rem;
         margin: 0 0 2rem 0;
         font-weight: 400;
+    }
+
+    .action-text {
+        font-size: 1.25rem;
+        margin: 0;
+        font-weight: 600;
+        opacity: 0.8;
     }
 
     @media (max-width: 768px) {
@@ -66,8 +109,6 @@
 </style>
 
 <script>
-import { actions } from "astro:actions";
-import { _ZodString } from "astro:schema";
 
     const gate = document.getElementById("gate")!;
     const title = document.getElementById("title")!;
@@ -114,7 +155,7 @@ import { _ZodString } from "astro:schema";
             setState("result");
             title.textContent = `${reaction} ms`;
             instructions.textContent = "Hit space to try your skills again!";
-            
+
         }
     });
 
